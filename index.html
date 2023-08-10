@@ -33,6 +33,13 @@
           <div class="days"></div>
         </div>
         <button type="button" id="capture-button">Download as PNG</button>
+        <label for="datemin">Set Date</label>
+        <input
+          type="date"
+          id="datemin"
+          name="datemin"
+          min="1900-01-02"
+        /><br /><br />
         <div class="lang-div">
           <select title="Sprachauswahl" name="languages" id="lang-picker">
             <option value="1">DE</option>
@@ -42,15 +49,20 @@
         </div>
       </div>
       <div class="container-right">
-       
         <div id="previewContainer">
           <img id="imagePreview" src="#" alt="Önizleme" />
         </div>
-        <input title="Select an image" placeholder="Select an image" type="file" id="imageInput" accept="image/*" />
+        <input
+          title="Select an image"
+          placeholder="Select an image"
+          type="file"
+          id="imageInput"
+          accept="image/*"
+        />
         <button type="button" id="convertButton">Black & White</button>
       </div>
     </div>
-    
+
     <script src="main.js"></script>
   </body>
 </html>

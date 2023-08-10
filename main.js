@@ -8,6 +8,9 @@ const next_mth_element = document.querySelector(".dates .month .next-mth");
 const prev_mth_element = document.querySelector(".dates .month .prev-mth");
 const days_element = document.querySelector(".dates .days");
 const weekdays_element = document.querySelector(".dates .weekdays");
+const manual_date_element = document.getElementById("datemin");
+
+
 
 const langPicker = document.getElementById("lang-picker");
 
@@ -66,9 +69,11 @@ const monthsTr = [
   "Kasım",
   "Aralık",
 ];
-const weekdaysDe = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
-const weekdaysEn = ["Su", "Mo", "Tue", "We", "Thu", "Fr", "Sa"];
-const weekdaysTr = ["Pz", "Pzt", "Sa", "Ça", "Pe", "Cu", "Cts"];
+const weekdaysDe = ["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"];
+const weekdaysEn = ["Mo", "Tue", "We", "Thu", "Fr", "Sa","Su"];
+const weekdaysTr = ["Pzt", "Sa", "Ça", "Pe", "Cu", "Cts","Pz"];
+
+
 
 let date = new Date();
 let day = date.getDate();
@@ -79,6 +84,13 @@ let selectedDate = date;
 let selectedDay = day;
 let selectedMonth = month;
 let selectedYear = year;
+
+manual_date_element.addEventListener("input", function () {
+  let date = manual_date_element.valueAsDate;
+  let month = date.getMonth();
+  let year = date.getFullYear();
+  mth_element.textContent = monthsDe[month] + " " + year;
+});
 
 let pickedMonth = "1";
 let pickedWeekday = "1";
@@ -177,7 +189,7 @@ function populateDates(e) {
   }
 
   const firstDay = new Date(year, month, 1);
-  let startingDay = firstDay.getDay();
+  let startingDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
   for (let i = 1; i < amount_days + startingDay; i++) {
     const day_element = document.createElement("div");
     day_element.classList.add("day");
@@ -308,4 +320,3 @@ document.addEventListener("DOMContentLoaded", function () {
     imagePreview.src = canvas.toDataURL();
   });
 });
-
