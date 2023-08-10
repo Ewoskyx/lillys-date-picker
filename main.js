@@ -2,18 +2,12 @@ const date_picker_element = document.querySelector(".date-picker");
 const selected_date_element = document.querySelector(
   ".date-picker .selected-date"
 );
-const dates_element = document.querySelector(".date-picker .dates");
-const mth_element = document.querySelector(".date-picker .dates .month .mth");
-const next_mth_element = document.querySelector(
-  ".date-picker .dates .month .next-mth"
-);
-const prev_mth_element = document.querySelector(
-  ".date-picker .dates .month .prev-mth"
-);
-const days_element = document.querySelector(".date-picker .dates .days");
-const weekdays_element = document.querySelector(
-  ".date-picker .dates .weekdays"
-);
+const dates_element = document.querySelector(".dates");
+const mth_element = document.querySelector(".dates .month .mth");
+const next_mth_element = document.querySelector(".dates .month .next-mth");
+const prev_mth_element = document.querySelector(".dates .month .prev-mth");
+const days_element = document.querySelector(".dates .days");
+const weekdays_element = document.querySelector(".dates .weekdays");
 
 const langPicker = document.getElementById("lang-picker");
 
@@ -88,6 +82,7 @@ let selectedYear = year;
 
 let pickedMonth = "1";
 let pickedWeekday = "1";
+
 mth_element.textContent = monthsDe[month] + " " + year;
 
 langPicker.addEventListener("change", function (e) {
@@ -108,14 +103,12 @@ langPicker.addEventListener("change", function (e) {
   initWeekDays();
 });
 
-// selected_date_element.textContent = formatDate(date);
 selected_date_element.dataset.value = selectedDate;
 
 populateDates();
 initWeekDays();
 
 // EVENT LISTENERS
-date_picker_element.addEventListener("click", toggleDatePicker);
 next_mth_element.addEventListener("click", goToNextMonth);
 prev_mth_element.addEventListener("click", goToPrevMonth);
 
@@ -265,3 +258,54 @@ function formatDate(d) {
 
   return day + " / " + month + " / " + year;
 }
+
+// To B-W Images
+document.addEventListener("DOMContentLoaded", function () {
+  const imageInput = document.getElementById("imageInput");
+  const imagePreview = document.getElementById("imagePreview");
+  const convertButton = document.getElementById("convertButton");
+
+  imageInput.addEventListener("change", function () {
+    const selectedImage = imageInput.files[0];
+
+    if (selectedImage) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = "block";
+      };
+
+      reader.readAsDataURL(selectedImage);
+    }
+  });
+
+  convertButton.addEventListener("click", function () {
+    if (!imagePreview.src) {
+      alert("Upss, hiç bir dosya seçilmedi :(");
+      return;
+    }
+
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    canvas.width = imagePreview.width;
+    canvas.height = imagePreview.height;
+
+    context.drawImage(imagePreview, 0, 0, canvas.width, canvas.height);
+
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+      data[i] = avg;
+      data[i + 1] = avg;
+      data[i + 2] = avg;
+    }
+
+    context.putImageData(imageData, 0, 0);
+    imagePreview.src = canvas.toDataURL();
+  });
+});
+

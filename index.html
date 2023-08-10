@@ -12,35 +12,45 @@
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
-    <title>LILLYSKETTE Date Picker</title>
+    <title>LILLYSKETTE Tools</title>
 
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <h1>LILLYS<span>DATE</span>PICKER</h1>
-
-    <div class="date-picker">
-      <div class="selected-date"></div>
-
-      <div class="dates" id="capture-me">
-        <div class="month">
-          <div class="arrows prev-mth">&lt;</div>
-          <div class="mth"></div>
-          <div class="arrows next-mth">&gt;</div>
+    <h1>LILLYS<span> TOOLS</span></h1>
+    <div class="main-wrapper">
+      <div class="container-left">
+        <div class="date-picker">
+          <div class="selected-date"></div>
         </div>
-        <div class="weekdays"></div>
-        <div class="days"></div>
+        <div class="dates" id="capture-me">
+          <div class="month">
+            <div class="arrows prev-mth">&lt;</div>
+            <div class="mth"></div>
+            <div class="arrows next-mth">&gt;</div>
+          </div>
+          <div class="weekdays"></div>
+          <div class="days"></div>
+        </div>
+        <button type="button" id="capture-button">Download as PNG</button>
+        <div class="lang-div">
+          <select title="Sprachauswahl" name="languages" id="lang-picker">
+            <option value="1">DE</option>
+            <option value="2">EN</option>
+            <option value="3">TR</option>
+          </select>
+        </div>
+      </div>
+      <div class="container-right">
+       
+        <div id="previewContainer">
+          <img id="imagePreview" src="#" alt="Önizleme" />
+        </div>
+        <input title="Select an image" placeholder="Select an image" type="file" id="imageInput" accept="image/*" />
+        <button type="button" id="convertButton">Black & White</button>
       </div>
     </div>
-    <button type="button" id="capture-button">Download as PNG</button>
-   <div class="lang-div">
-    <label for="languages">Sprachauswahl:</label>
-    <select title="Sprachauswahl" name="languages" id="lang-picker">
-      <option value="1">De</option>
-      <option value="2">En</option>
-      <option value="3">Tr</option>
-    </select>
-   </div>
+    
     <script src="main.js"></script>
   </body>
 </html>
